@@ -1,0 +1,288 @@
+:root {
+    --lavanda: #ab91df;
+    --lavanda-dark: #7965a5;
+    --olive: #556B2F;
+    --dark: #664585;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Playfair Display', serif;
+    scroll-behavior: smooth;
+}
+
+/* Fontes clássicas */
+h1, h2, h3, h4 {
+    font-family: 'Playfair Display', serif;
+    color: rgb(255, 255, 255);
+}
+p {
+    font-family: 'Playfair Display', serif;  
+    color: rgb(255, 255, 255);
+}
+
+.bible-quote {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.4rem;
+    color: white;
+}
+
+/* ===================== NAVBAR ===================== */
+.navbar {
+    background: rgba(255, 255, 255, 0) !important;
+    backdrop-filter: blur(0px);
+    box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+    transition: all 0.4s ease;
+    padding: 16px 0;
+    z-index: 1100;
+}
+
+/* Quando rolar a página */
+.navbar.scrolled {
+    background: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+}
+
+.navbar.menu-open {
+    background: rgba(255, 255, 255, 0.97) !important;
+    backdrop-filter: blur(12px) !important;
+}
+
+/* Nome do Casal */
+#brandName {
+    color: rgb(0, 0, 0) !important;
+    transition: color 0.4s ease;
+}
+
+.navbar.scrolled #brandName {
+    color: #000000 !important;
+}
+
+/* Links do Menu */
+#navbarNav .nav-link {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    padding: 5px 10px;
+    color: rgb(0, 0, 0) !important;
+    transition: all 0.3s ease;
+}
+
+#navbarNav .nav-link:hover,
+#navbarNav .nav-link.active {
+    font-family: 'Great Vibes', cursive !important;
+    color: var(--lavanda) !important;
+    font-size: 1.45rem;
+}
+
+/* Links após rolar */
+.navbar.scrolled #navbarNav .nav-link {
+    color: #000000 !important;
+}
+
+.navbar.scrolled #navbarNav .nav-link:hover,
+.navbar.scrolled #navbarNav .nav-link.active {
+    color: var(--lavanda) !important;
+}
+/* ANIMAÇÃO STAGGERED */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+/* ===================== MUSIC PLAYER ===================== */
+#music-player {
+    position: fixed;
+    bottom: 10px;
+    right: 30px;
+    z-index: 2000;
+}
+
+.btn-music {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background: var(--lavanda);
+    color: white;
+    border: none;
+    font-size: 1.8rem;
+    font-family: 'Playfair Display', serif;
+    box-shadow: 0 8px 25px rgba(159, 122, 234, 0.5);
+}
+
+/* Ajuste de delay para cada seção */
+.countdown-section { transition-delay: 0.1s; }
+.save-the-date-section { transition-delay: 0.3s; }
+.confirm-section { transition-delay: 0.5s; }
+.hero-presentes-home { transition-delay: 0.7s; }
+#galleryGrid .masonry-item { transition-delay: 0.1s; }
+
+/* Para os itens da galeria aparecerem um por um */
+#galleryGrid .masonry-item:nth-child(1) { transition-delay: 0.2s; }
+#galleryGrid .masonry-item:nth-child(2) { transition-delay: 0.4s; }
+#galleryGrid .masonry-item:nth-child(3) { transition-delay: 0.6s; }
+#galleryGrid .masonry-item:nth-child(4) { transition-delay: 0.8s; }
+/* ===================== HAMBURGUER ===================== */
+.custom-toggler {
+    width: 38px;
+    height: 34px;
+    padding: 0;
+    background: transparent;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    display: none;
+    z-index: 1200;
+}
+
+@media (max-width: 991px) {
+    .custom-toggler { display: block; }
+}
+
+.hamburger {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.bar {
+    position: absolute;
+    width: 100%;
+    height: 3.2px;
+    background: rgb(0, 0, 0);
+    border-radius: 3px;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bar:nth-child(1) { top: 7px; }
+.bar:nth-child(2) { top: 15.5px; }
+.bar:nth-child(3) { top: 24px; }
+
+/* Transformação para X */
+#hamburgerBtn[aria-expanded="true"] .bar:nth-child(1) {
+    top: 15.5px;
+    transform: rotate(45deg);
+}
+#hamburgerBtn[aria-expanded="true"] .bar:nth-child(2) {
+    opacity: 0;
+}
+#hamburgerBtn[aria-expanded="true"] .bar:nth-child(3) {
+    top: 15.5px;
+    transform: rotate(-45deg);
+}
+
+/* Barras pretas quando navbar está scrolled */
+.navbar.scrolled .bar {
+    background: #000000 !important;
+}
+
+/* ===================== MENU MOBILE ===================== */
+@media (max-width: 991px) {
+    .navbar-collapse {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(255, 255, 255, 0.97);
+        backdrop-filter: blur(12px);
+        z-index: 1050;
+        padding-top: 90px;
+        display: flex !important;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.4s ease;
+    }
+
+    .navbar-collapse.show {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .navbar-nav {
+        width: 100%;
+        max-width: 360px;
+        text-align: center;
+    }
+
+    .nav-item {
+        margin-bottom: 0px;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.4s ease;
+    }
+
+    .navbar-collapse.show .nav-item {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Animação com delay */
+    .navbar-collapse.show .nav-item:nth-child(1) { transition-delay: 0.05s; }
+    .navbar-collapse.show .nav-item:nth-child(2) { transition-delay: 0.10s; }
+    .navbar-collapse.show .nav-item:nth-child(3) { transition-delay: 0.15s; }
+    .navbar-collapse.show .nav-item:nth-child(4) { transition-delay: 0.20s; }
+    .navbar-collapse.show .nav-item:nth-child(5) { transition-delay: 0.25s; }
+}
+
+/* ===================== SAVE THE DATE ===================== */
+.save-the-date-section {
+    background: linear-gradient(rgba(152, 185, 140, 0.582), rgba(204, 156, 236, 0.623)), 
+                url('/assets/images/aquarela.jpeg') center/cover no-repeat;
+    min-height: 120vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.save-the-date-section .gold-line {
+    font-size: 2rem;
+    color: #f3d4ff;
+}
+
+section.save-the-date-section h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 5rem;
+    color: rgb(255, 255, 255);
+}
+
+.gold-line {
+    font-size: 1.8rem;
+    color: #a1ffb7;
+}
+
+button {
+    font-size: 80%;
+}
+
+/* ===================== FOOTER ===================== */
+footer {
+    background: var(--dark);
+    color: #ddd;
+    padding: 40px 20px 30px;
+    text-align: center;
+}
+
+.instagram-link {
+    color: var(--lavanda);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.instagram-link:hover {
+    color: #d4b8ff;
+    text-decoration: underline;
+}

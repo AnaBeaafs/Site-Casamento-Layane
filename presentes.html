@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layane & Daniel • Presentes</title>
+    <link rel="icon" type="image/png" href="assets/images/Iconedepagina.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/presentes.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Great+Vibes&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        /* Capa Superior */
+        .hero-presentes {
+            height: 30vh;
+            min-height: 350px;
+            background-color: #c3b0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero-content h2 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.8rem;
+            margin-bottom: 12px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.7);
+        }
+
+        .hero-content p {
+            font-family: 'Playfair Display', cursive;
+            font-size: 1rem;
+            max-width: 500px;
+            margin: 0 0 auto;
+            opacity: 0.95;
+        }
+
+        .presentes-section {
+            background: #ffffff;
+            padding: 70px 0 100px;
+        }
+
+        .section-divider {
+            height: 3px;
+            background: linear-gradient(to right, transparent, var(--lavanda), transparent);
+            max-width: 280px;
+            margin: 0 auto 3rem;
+        }
+
+        /* Menu */
+        #areaMenu {
+            justify-content: center !important;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .nav-pills .nav-link {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.22rem;
+            padding: 12px 24px !important;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            border: none !important;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .nav-area {
+            color: #c5a3e7;
+            background: rgba(159, 122, 234, 0.1);
+        }
+
+        .nav-area:hover,
+        .nav-area.active {
+            background: var(--verde) !important;
+            color: #000 !important;
+            transform: translateY(-3px);
+        }
+
+        #subMenu {
+            justify-content: center !important;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .nav-sub {
+            font-size: 1.05rem;
+            padding: 9px 20px !important;
+            color: #c5a3e7;
+            background: rgba(159, 122, 234, 0.08);
+        }
+
+        .nav-sub:hover,
+        .nav-sub.active {
+            background: var(--lavanda) !important;
+            color: white !important;
+        }
+
+        
+        /* Espaçamento extra na listagem "Todos" */
+        #presentesContainer {
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-presentes { height: 38vh; }
+            .hero-content h1 { font-size: 3.8rem; }
+            .nav-pills .nav-link { font-size: 1.0rem; padding: 10px 18px !important; }
+        }
+
+/* Animações de entrada */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+        
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Cards - Ajustados (menores e com mais espaçamento) */
+        .gift-card {
+            border: none;
+            border-radius: 22px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            transition: all 0.4s ease;
+            height: 100%;
+        }
+
+        .gift-card:hover {
+            transform: translateY(-15px);
+        }
+
+        .gift-card.presenteado {
+            filter: grayscale(80%) opacity(0.68);
+        }
+        .gift-card .image-container {
+            position: relative;
+            width: 100%;
+            padding-top: 85%;        /* Aumentado = fotos mais altas */
+            overflow: hidden;
+        }
+        /* Imagem responsiva */
+        .gift-card img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        .gift-card:hover img {
+            transform: scale(1.05);
+        }
+        /* Ajustes por tela */
+        @media (max-width: 992px) {
+            .gift-card .image-container {
+                padding-top: 82%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .gift-card .image-container {
+                padding-top: 78%;     /* Bom tamanho para tablets e celulares maiores */
+            }
+        }
+
+        @media (max-width: 576px) {
+            .gift-card .image-container {
+                padding-top: 75%;
+            }
+        }
+
+        .card-body { 
+            padding: 1.6rem; 
+        }
+
+        @media (max-width: 768px) {
+            .card-body {
+                padding: 1.4rem 1.3rem;
+            }
+            
+            .card-title {
+                font-size: 1.28rem;
+            }
+        }
+
+        /* Badges e botão */
+        .badge-utensilios { background-color: #c3b0f0; color: #4a2f7a; }
+        .badge-eletro { background-color: var(--lavanda); color: white; }
+        .badge-moveis { background-color: var(--lavanda-dark); color: white; }
+
+        .btn-confirm {
+            border: 2px solid var(--lavanda);
+            color: var(--lavanda);
+            border-radius: 50px;
+            padding: 12px 0;
+            font-weight: 500;
+            width: 100%;
+        }
+        .btn-confirm:hover {
+            background-color: var(--lavanda);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===================== NAVBAR ===================== -->
+<nav class="navbar fixed-top navbar-expand-lg" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand fw-bold fs-4" href="index.html" id="brandName">
+            Layane & Daniel
+        </a>
+        
+        <button class="navbar-toggler custom-toggler" type="button" 
+                data-bs-toggle="collapse" 
+                data-bs-target="#navbarNav" 
+                aria-controls="navbarNav" 
+                aria-expanded="false" 
+                id="hamburgerBtn">
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto text-center">
+                <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="irPara('index.html')">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="irPara('presenca.html')">Presença</a></li>
+                <li class="nav-item"><a class="nav-link active" href="javascript:void(0)" onclick="irPara('presentes.html')">Presentes</a></li>
+                <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="irPara('informacoes.html')">Informações</a></li>
+                <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="irPara('galeria.html')">Galeria</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Capa Superior --><br><br><br>
+<section class="hero-presentes masonry-item animate-on-scroll">
+    <div class="hero-content text-center masonry-item animate-on-scroll">
+        <h2>Nossa Lista de Presentes</h2>
+        <p>Sua presença é o nosso maior presente, mas se desejar nos presentear, preparamos esta lista com carinho.</p>
+    </div>
+</section>
+
+<section class="presentes-section">
+    <div class="container">
+        <div class="section-divider"></div>
+
+        <ul class="nav nav-pills mb-4 masonry-item animate-on-scroll" id="areaMenu"></ul>
+        <ul class="nav nav-pills mb-5 masonry-item animate-on-scroll" id="subMenu" style="display: none;"></ul><br>
+        <div class="row g-4" id="presentesContainer"></div>
+    </div>
+</section>
+
+<!-- Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 class="modal-title fw-bold" id="modalTitle"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p id="modalDescricao" class="mb-4"></p>
+                <label class="form-label">Seu nome completo</label>
+                <input type="text" class="form-control" id="nomePresenteador" placeholder="Ex: Ana Clara Mendes">
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success px-5" id="btnConfirmarFinal">Confirmar Presente</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+<script>
+// ==================== EMAILJS ====================
+emailjs.init("MtOVefqW0iXUwD8xO");
+// ==================== NOVA LISTA DE PRESENTES ====================
+const presentes = [
+    {id:1, area:"Cozinha", categoria:"Eletrodomésticos", nome:"Panela de Pressão Elétrica", desc:"Digital com timer e múltiplas funções.", preco:"R$ 489,90", img:"https://a-static.mlcdn.com.br/420x420/panela-de-pressao-eletrica-electrolux-pce20-900w-5l-timer-controle-de-temperaturapanela-de-pressao-eletrica-5l-electrolux-efficient-pce20-rita-lobo/magazineluiza/023328500/1af08049c3bfd85972595a23dedce181.jpg"},
+    {id:2, area:"Cozinha", categoria:"Eletrodomésticos", nome:"Panela de Arroz Elétrica", desc:"Antiaderente e com função vapor.", preco:"R$ 259,90", img:"https://a-static.mlcdn.com.br/420x420/panela-de-arroz-eletrica-electrolux-efficient-2-em-1-700w-10-xicaras/magazineluiza/237895900/9c7178c56419ed5e8d4ef5efe6148039.jpg"},
+    {id:3, area:"Cozinha", categoria:"Eletrodomésticos", nome:"Batedeira Elétrica", desc:"Com tigela e múltiplas velocidades.", preco:"R$ 329,90", img:"https://m.magazineluiza.com.br/a-static/420x420/batedeira-eletrica-planet-com-tigela-pp-mondial/lojastopmoveis1/2414/67dd3442d450f56bd82e9c45efd528f3.jpg"},
+    {id:4, area:"Cozinha", categoria:"Eletrodomésticos", nome:"Air Fryer Digital 6 Litros", desc:"Tela touch e receitas pré-programadas.", preco:"R$ 330,90", img:"https://a-static.mlcdn.com.br/420x420/air-fryer-philco-paf65a-preto-e-inox-65l/magazineluiza/240304200/e0479258cdbf29d38053b74f1611ea7d.jpg"},
+    {id:5, area:"Cozinha", categoria:"Eletrodomésticos", nome:"Sanduicheira / Grill", desc:"Antiaderente e compacta.", preco:"R$ 100,00", img:"https://a-static.mlcdn.com.br/420x420/sanduicheira-eletrica-cadence-click-750w-san400-220v/magazineluiza/238024900/66087937270bf24b997ae31873beafbf.jpg"},
+    {id:6, area:"Cozinha", categoria:"Eletrodomésticos", nome:"Espremedor de Frutas", desc:"Elétrico profissional.", preco:"R$ 89,90", img:"https://a-static.mlcdn.com.br/420x420/espremedor-de-frutas-britania-super-turbo-bellagio-350-preto-35w-15l/magazineluiza/021818000/b9ac6b38d295372104376244209892de.jpg"},
+    {id:7, area:"Cozinha", categoria:"Eletrodomésticos", nome:"Multiprocessador", desc:"3 em 1 - Multiprocessador, liquidificador e picador.", preco:"R$ 260,90", img:"https://a-static.mlcdn.com.br/420x420/multiprocessador-britania-preto-all-in-one-bmp900p-2-velocidades-pulsar-900w/magazineluiza/218635700/0001c8a5e0bcefbaa9202f78003205c7.jpg"},
+    {id:8, area:"Cozinha", categoria:"Eletrodomésticos", nome:"Chaleira Elétrica", desc:"Em aço inox com desligamento automático.", preco:"R$ 141,90", img:"https://a-static.mlcdn.com.br/420x420/chaleira-eletrica-electrolux-efficient-eek10-18l/magazineluiza/231236600/07ca48d353859beafcbd91e6d4a67110.jpg"},
+    {id:9, area:"Cozinha", categoria:"Eletrodomésticos", nome:"Filtro de Água", desc:"Refrigerador com purificador.", preco:"R$ 489,90", img:"https://m.magazineluiza.com.br/a-static/420x420/bebedouro-philco-bivolt-10l-e-20l-duas-temperaturas-pbe14/philcooficial/22757/c593102ed705caf0d7026a9be6e3a0e5.jpeg"},
+
+    {id:10, area:"Cozinha", categoria:"Utensílios", nome:"Panela Pipoqueira", desc:"Para fogão ou micro-ondas.", preco:"R$ 74,90", img:"https://m.magazineluiza.com.br/a-static/420x420/pipoqueira-cozillar-antiaderente-grafite-tampa-de-vidro/cozillarindustria/7893709601189/6895dfa3a0cb47360bd5f12e3bc53586.jpeg"},
+    {id:11, area:"Cozinha", categoria:"Utensílios", nome:"Jogo de Talheres de Cozinha", desc:"Colheres, facas, garfos etalher de sobremesa.", preco:"R$ 80,90", img:"https://a-static.mlcdn.com.br/420x420/jogo-de-talheres-tramontina-inox-colher-faca-garfo-24-pecas-inox/ecomba/buzi-24/f023246dbc1bc2156f72e6fb2034b489.jpeg"},
+
+    {id:12, area:"Área de Serviço", categoria:"Eletrodomésticos", nome:"Ventilador", desc:"De mesa ou de chão - Uso geral.", preco:"R$ 140,90", img:"https://a-static.mlcdn.com.br/420x420/ventilador-de-mesa-britania-bvt400-40cm-6-pas-3-velocidades-preto/magazineluiza/237756600/64fdc5a4c45709c8ddf9b293f5e7e88d.jpg"},
+    {id:13, area:"Área de Serviço", categoria:"Eletrodomésticos", nome:"Aspirador de Pó", desc:"Portátil ou vertical.", preco:"R$ 217,90", img:"https://m.magazineluiza.com.br/a-static/420x420/aspirador-de-po-2-em-1-electrolux-com-filtro-hepa-1500w-cyclonic-power-stk16-cinza/magazineluiza/240287700/a18a61b585dfcfc3776d8c7807b3fbdb.jpg"},
+    {id:14, area:"Área de Serviço", categoria:"Eletrodomésticos", nome:"Ferro de Passar Roupa", desc:"Vapor vertical.", preco:"R$ 70,90", img:"https://a-static.mlcdn.com.br/420x420/ferro-de-passar-roupa-a-seco-mondial-fsn-55-b-preto/magazineluiza/227604100/ec088e796e53bb55716d3a229a3ac8af.jpg"},
+
+    {id:15, area:"Geral", categoria:"Contribuição", nome:"Presente em Dinheiro", isMoney:true, desc:"Para ajudar nas despesas da casa, viagem de lua de mel ou primeira compra.", preco:"Qualquer valor", img:"/assets/images/prewedding/pre27.JPG"}
+];
+let presentesPresenteados = JSON.parse(localStorage.getItem('presentesPresenteados')) || [];
+// ==================== CONFETES ROXOS ====================
+function launchConfetti() {
+    const colors = ['#b498ee', '#9F7AEA', '#7965a5', '#d4b3ff'];
+    const duration = 1800;
+    const end = Date.now() + duration;
+
+    const frame = () => {
+        confetti({
+            particleCount: 8,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 },
+            colors: colors
+        });
+        confetti({
+            particleCount: 8,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 },
+            colors: colors
+        });
+
+        if (Date.now() < end) requestAnimationFrame(frame);
+    };
+    frame();
+}
+// ==================== RENDERIZAÇÃO ====================
+const areaMenu = document.getElementById('areaMenu');
+areaMenu.innerHTML = `
+    <li class="nav-item"><button class="nav-link nav-area active" data-area="Todos"><i class="fas fa-th-large"></i> Todos</button></li>
+    <li class="nav-item"><button class="nav-link nav-area" data-area="Cozinha"><i class="fas fa-utensils"></i> Cozinha</button></li>
+    <li class="nav-item"><button class="nav-link nav-area" data-area="Área de Serviço"><i class="fas fa-tshirt"></i> Área de Serviço</button></li>
+    <li class="nav-item"><button class="nav-link nav-area" data-area="Geral"><i class="fas fa-gift"></i> Geral</button></li>
+`;
+// Lógica dos menus e cards (mantida)
+document.querySelectorAll('.nav-area').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.nav-area').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const area = btn.dataset.area;
+        if (area === "Todos") {
+            document.getElementById('subMenu').style.display = 'none';
+            renderCards();
+        } else {
+            renderSubMenu(area);
+            renderCards(area);
+        }
+    });
+});
+
+function renderSubMenu(area) {
+    const subMenu = document.getElementById('subMenu');
+    subMenu.innerHTML = '';
+    subMenu.style.display = 'flex';
+
+    if (area === "Cozinha") {
+        ["Eletrodomésticos", "Utensílios"].forEach(cat => {
+            const li = document.createElement('li');
+            li.className = 'nav-item';
+            li.innerHTML = `<button class="nav-link nav-sub" data-area="${area}" data-cat="${cat}">${cat}</button>`;
+            subMenu.appendChild(li);
+        });
+    } else if (area === "Área de Serviço") {
+        const li = document.createElement('li');
+        li.className = 'nav-item';
+        li.innerHTML = `<button class="nav-link nav-sub active" data-area="${area}" data-cat="Eletrodomésticos">Eletrodomésticos</button>`;
+        subMenu.appendChild(li);
+    }
+
+    document.querySelectorAll('.nav-sub').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.nav-sub').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderCards(btn.dataset.area, btn.dataset.cat);
+        });
+    });
+}
+
+function renderCards(area = null, categoria = null) {
+    const container = document.getElementById('presentesContainer');
+    container.innerHTML = '';
+
+    let filtrados = (area && area !== "Todos") ? presentes.filter(p => p.area === area) : presentes;
+    if (categoria) filtrados = filtrados.filter(p => p.categoria === categoria);
+
+    filtrados.forEach(item => {
+        const isPresenteado = presentesPresenteados.includes(item.id);
+        let badgeClass = item.categoria === "Utensílios" ? "badge-utensilios" : 
+                        item.categoria === "Eletrodomésticos" ? "badge-eletro" : "badge-moveis";
+
+    const cardHTML = `
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card gift-card ${isPresenteado ? 'presenteado' : ''}" data-id="${item.id}">
+                <div class="image-container">
+                    <img src="${item.img}" alt="${item.nome}">
+                </div>
+                <div class="card-body d-flex flex-column">
+                    <span class="badge ${badgeClass} mb-3">${item.categoria}</span>
+                    <h5 class="card-title mb-3">${item.nome}</h5>
+                    <p class="card-text flex-grow-1">${item.desc}</p>
+                    <p class="fw-bold text-success fs-4 mb-3">${item.preco}</p>
+                    <button class="btn btn-confirm confirmar-btn" data-id="${item.id}" ${isPresenteado ? 'disabled' : ''}>
+                        ${isPresenteado ? 'Já Presenteado' : 'Escolher este presente'}
+                    </button>
+                </div>
+            </div>
+        </div>`;
+        container.innerHTML += cardHTML;
+    });
+};
+
+// Modal + Confirmação
+let presenteAtual = null;
+
+document.addEventListener('click', e => {
+    if (e.target.classList.contains('confirmar-btn') && !e.target.disabled) {
+        const id = parseInt(e.target.dataset.id);
+        presenteAtual = presentes.find(p => p.id === id);
+
+        document.getElementById('modalTitle').textContent = presenteAtual.nome;
+        document.getElementById('modalDescricao').textContent = presenteAtual.desc + " — " + presenteAtual.preco;
+
+        new bootstrap.Modal(document.getElementById('confirmModal')).show();
+    }
+});
+
+document.getElementById('btnConfirmarFinal').addEventListener('click', () => {
+    const nome = document.getElementById('nomePresenteador').value.trim();
+    if (!nome) return alert("Por favor, informe seu nome.");
+
+    const isMoneyGift = presenteAtual.isMoney;
+
+    if (!isMoneyGift) {
+        // Presente normal
+        presentesPresenteados.push(presenteAtual.id);
+        localStorage.setItem('presentesPresenteados', JSON.stringify(presentesPresenteados));
+
+        // EmailJS
+        emailjs.send("service_yhqj17q", "template_3s7i01e", {
+            convidado: nome,
+            presente: presenteAtual.nome,
+            status: "Confirmado"
+        })
+        .then(function(response){
+            console.log("Sucesso:", response);
+        })
+        .catch(function(error){
+            console.error("Erro EmailJS:", error);
+        });
+        launchConfetti();
+
+        alert(`🎉 Obrigado, ${nome}!\n\nSua confirmação de ${presenteAtual.nome} foi registrada com carinho!`);
+    } else {
+        // Presente em Dinheiro → PIX
+        alert(`💜 Obrigado, ${nome}!\n\nVocê será redirecionado para o PIX do casal.`);
+        window.open("https://seu-link-do-pix-aqui", "_blank"); // ← Coloque seu PIX aqui
+    }
+
+    bootstrap.Modal.getInstance(document.getElementById('confirmModal')).hide();
+    renderCards();
+});
+
+renderCards();
+</script>
+<script>
+// Animação suave staggered com Intersection Observer
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+            setTimeout(() => {
+                entry.target.classList.add('visible');
+            }, index * 150); // Delay entre os elementos
+        }
+    });
+}, {
+    threshold: 0.15,
+    rootMargin: "0px 0px -50px 0px"
+});
+
+// Aplica o observer nos elementos que queremos animar
+document.querySelectorAll('.animate-on-scroll').forEach(el => {
+    observer.observe(el);
+});
+
+</script>
+    <!-- MUSIC PLAYER -->
+    <div id="music-player">
+        <button id="musicBtn" class="btn-music"><i class="fas fa-music"></i></button>
+    </div>
+
+    <footer class="py-4 text-center bg-dark text-white">
+        <p>
+            Copyright © 2026 | Produzido por 
+            <a href="https://www.instagram.com/biasousawd/" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="instagram-link">
+        <i>Bia Sousa | Web Designer</i class="fab fa-instagram">
+            </a>
+        </p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

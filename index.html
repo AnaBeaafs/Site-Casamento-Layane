@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layane & Daniel • 19.07.2026</title>
+    <link rel="icon" type="image/png" href="assets/images/Iconedepagina.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Great+Vibes&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+        <style>
+/* ANIMAÇÃO STAGGERED */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Ajuste de delay para cada seção */
+.countdown-section { transition-delay: 0.1s; }
+.save-the-date-section { transition-delay: 0.3s; }
+.confirm-section { transition-delay: 0.5s; }
+.hero-presentes-home { transition-delay: 0.7s; }
+#galleryGrid .masonry-item { transition-delay: 0.1s; }
+
+/* Para os itens da galeria aparecerem um por um */
+#galleryGrid .masonry-item:nth-child(1) { transition-delay: 0.2s; }
+#galleryGrid .masonry-item:nth-child(2) { transition-delay: 0.4s; }
+#galleryGrid .masonry-item:nth-child(3) { transition-delay: 0.6s; }
+#galleryGrid .masonry-item:nth-child(4) { transition-delay: 0.8s; }
+        .masonry-grid {
+            column-count: 4;
+            column-gap: 16px;
+        }
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 16px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .masonry-item:hover {
+            transform: scale(1.04);
+        }
+        .masonry-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* MODAL - Foto maior */
+        #photoModal .modal-content {
+            background: transparent;
+            border: none;
+        }
+        #modalImage {
+            max-height: 85vh;
+            width: auto;
+            max-width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.3);
+        }
+
+        /* ===================== MOBILE - FOTOS MAIORES ===================== */
+        @media (max-width: 992px) {
+            .masonry-grid { column-count: 3; }
+        }
+        @media (max-width: 768px) {
+            .masonry-grid { column-count: 2; }
+            .masonry-item { margin-bottom: 12px; }
+        }
+        @media (max-width: 480px) {
+            .masonry-grid { column-count: 1; }
+            .masonry-item img {
+                min-height: 380px; /* Fotos mais altas no celular */
+            }
+        }
+    </style>
+
+<!-- ===================== NAVBAR FINAL - COM SUA ESTILIZAÇÃO ===================== -->
+<nav class="navbar fixed-top navbar-expand-lg" id="mainNav">
+    <div class="container animate-on-scroll">
+        <a class="navbar-brand fw-bold fs-4" href="index.html" id="brandName">
+            Layane & Daniel
+        </a>
+        
+        <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" id="hamburgerBtn">
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto text-center">
+                <li class="nav-item"><a class="nav-link active" href="javascript:void(0)" onclick="irPara('index.html')">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="irPara('presenca.html')">Presença</a></li>
+                <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="irPara('presentes.html')">Presentes</a></li>
+                <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="irPara('informacoes.html')">Informações</a></li>
+                <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="irPara('galeria.html')">Galeria</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- HERO CARROSSEL -->
+<header id="hero">
+    <div id="heroCarousel" class="carousel slide " data-bs-ride="carousel" data-bs-interval="3000">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="/assets/images/Capa1.JPG" class="d-block w-100" alt="Casal">
+            </div>
+            <div class="carousel-item">
+                <img src="/assets/images/Capa3.JPG" class="d-block w-100" alt="Casal">
+            </div>
+            <div class="carousel-item">
+                <img src="/assets/images/Capa4.JPG" class="d-block w-100" alt="Casal">
+            </div>
+            <div class="carousel-item">
+                <img src="/assets/images/Capa5.JPG" class="d-block w-100" alt="Casal">
+            </div>
+            <div class="carousel-item">
+                <img src="/assets/images/Capa6.JPG" class="d-block w-100" alt="Casal">
+            </div>
+        </div>
+    </div>
+
+    <div class="hero-content text-center ">
+        <h2 class="ptitulo animate-on-scroll">Layane & Daniel</h2>
+        
+        <!-- LINHA ELEGANTE -->
+        <div class="hero-line mx-auto my-4 animate-on-scroll"></div>
+        
+        <p class="bible-quote animate-on-scroll">"O amor é paciente, o amor é bondoso..."</p>
+        <p class="text-white-50 animate-on-scroll">1 Coríntios 13:4</p>
+    </div>
+</header>
+
+<!-- CONTAGEM REGRESSIVA - ESTILO MINIMALISTA -->
+<section class="countdown-section py-5 text-center position-relative animate-on-scroll">
+    <div class="container animate-on-scroll">
+        <p class="bible-quote fs-2 mb-4 animate-on-scroll" style="color: white;">Casaremos em:</p>
+        
+        <div class="d-flex justify-content-center flex-wrap gap-4 gap-md-5 animate-on-scroll" id="countdown-container">
+            <!-- Os números serão gerados via JavaScript -->
+        </div>
+    </div>
+</section>
+
+<!-- SAVE THE DATE -->
+<section class="save-the-date-section py-5 bg-light animate-on-scroll">
+    <div class="container">
+        <div class="text-center">
+            <div class="mb-5">
+                <p class="mb-1 animate-on-scroll">19 JUL 2026</p>
+                <h3 class="display-5 text-lavanda animate-on-scroll animate-on-scroll">DATA</h3>
+                <div class="my-4 animate-on-scroll"><span class="gold-line">✦</span></div>
+
+                <p class="mb-1 animate-on-scroll">16 HORAS</p>
+                <h3 class="display-5 text-lavanda animate-on-scroll">HORÁRIO</h3>
+                <div class="my-4 animate-on-scroll"><span class="gold-line">✦</span></div>
+
+                <p class="mb-1 animate-on-scroll">GIARDINO DI MENIS - EVENTOS</p>
+                <h3 class="display-5 text-lavanda animate-on-scroll">LOCAL</h3>
+            </div>
+            <br><br>
+            <h1 class="bible-quote display-1 mb-4 animate-on-scroll" style="letter-spacing: 6px; line-height: 1.1;">
+                Save The Date!
+            </h1>
+
+            <!-- BOTÕES COM BORDA E TEXTO BRANCO -->
+            <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+                <button onclick="addToCalendar()" 
+                        class="btn btn-outline-light btn-lg px-5 py-3 rounded-pill">
+                    Salvar data
+                </button>
+                <button onclick="abrirMapa()" 
+                        class="btn btn-outline-light btn-lg px-5 py-3 rounded-pill">
+                    Ver Localização
+                </button>
+            </div>
+        </div>
+        <br>
+    </div>
+</section>
+
+   <!-- CONFIRMAR PRESENÇA (mantido como você colocou) -->
+    <section class="confirm-section py-5 bg-light animate-on-scroll">
+        <div class="container min-vh-100 d-flex flex-column justify-content-center">
+            <div class="text-center">
+                <h2 class="display-5 fw-bold text-dark mb-2 animate-on-scroll" style="font-family: 'Playfair Display', serif;">
+                    Confirme sua Presença
+                </h2>
+                <p class="text-muted mb-5 animate-on-scroll" style="font-family: 'Playfair Display', serif; font-size: 1.1rem;">
+                    Pedimos que confirme o mais rápido que puder,<br>
+                    assim que tiver certeza!
+                </p>
+                    <a href="javascript:void(0)" onclick="irPara('presenca.html')" class="btn btn-outline-dark btn-lg px-5 py-3 rounded-pill">Confirmar Presença</a>
+
+                <div id="resultado" class="mt-4 fw-bold fs-5"></div>
+            </div>
+        </div>
+    </section>
+
+<!-- Capa Superior Bonita -->
+<section class="hero-presentes-home animate-on-scroll">
+    <div class="hero-content-home text-center">
+        <h2 class="animate-on-scroll">Lista de Presentes</h2>
+        <p class="animate-on-scroll">Nos presenteie com amor</p>
+            <a href="javascript:void(0)" onclick="irPara('presentes.html')" class="btn btn-outline-light btn-lg px-5 py-2 rounded-pill">Presentear</a>
+    </div>
+</section>
+
+        <ul class="nav nav-pills mb-4" id="areaMenu"></ul>
+        <ul class="nav nav-pills mb-5" id="subMenu" style="display: none;"></ul>
+    </div>
+</section>
+
+
+
+   <!-- GALERIA PREVIEW NO HOME -->
+<section class="py-5">
+    <div class="container">
+        <div class="masonry-grid" id="galleryGrid"></div>
+        <!-- Botão centralizado -->
+        <div class="text-center mt-5">
+            <!-- Em vez de link direto, use: -->
+            <a href="javascript:void(0)" onclick="irPara('galeria.html')" class="btn btn-outline-dark btn-lg px-5 py-3 rounded-pill">Ver Galeria</a>
+        </div>
+
+    </div>
+</section>
+
+<!-- MODAL -->
+<div class="modal fade" id="photoModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-body p-0 text-center">
+                <button type="button" class="btn-close position-absolute top-0 end-0 m-3 bg-white" 
+                        data-bs-dismiss="modal" style="z-index: 10;"></button>
+                <img id="modalImage" src="" class="img-fluid" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script>
+        const photos = [
+            { src: "/assets/images/prewedding/pre27.JPG" },
+            { src: "/assets/images/prewedding/pre20.jpg" },
+            { src: "/assets/images/prewedding/pre12.jpg" },
+            { src: "/assets/images/prewedding/pre9.jpg" },
+
+
+        ];
+
+        const galleryGrid = document.getElementById('galleryGrid');
+
+        photos.forEach(photo => {
+            const div = document.createElement('div');
+            div.className = 'masonry-item';
+            div.innerHTML = `<img src="${photo.src}" alt="">`;
+            div.onclick = () => showModal(photo.src);
+            galleryGrid.appendChild(div);
+        });
+
+        function showModal(src) {
+            document.getElementById('modalImage').src = src;
+            new bootstrap.Modal(document.getElementById('photoModal')).show();
+        }
+    </script>
+        
+    <script>
+    // Animação suave ao rolar (staggered)
+    const animateOnScroll = () => {
+        const elements = document.querySelectorAll('.animate-on-scroll');
+        
+        elements.forEach((el, index) => {
+            const rect = el.getBoundingClientRect();
+            if (rect.top <= window.innerHeight * 0.85) {
+                setTimeout(() => {
+                    el.classList.add('visible');
+                }, index * 80); // Delay entre elementos
+            }
+        });
+    };
+
+    window.addEventListener('scroll', animateOnScroll);
+    window.addEventListener('load', animateOnScroll);
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+        const nav = document.getElementById('mainNav');
+        if (window.scrollY > 80) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
+        }
+    });
+    </script>
+    <footer class="py-4 text-center bg-dark text-white">
+        <p>
+            Copyright © 2026 | Produzido por 
+            <a href="https://www.instagram.com/biasousawd/" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="instagram-link">
+        <i>Bia Sousa | Web Designer</i class="fab fa-instagram">
+            </a>
+        </p>
+    </footer>
+
+    <!-- MUSIC PLAYER -->
+    <div id="music-player">
+        <button id="musicBtn" class="btn-music"><i class="fas fa-music"></i></button>
+    </div>
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+    // Animação suave staggered com Intersection Observer
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.classList.add('visible');
+                }, index * 150); // Delay entre os elementos
+            }
+        });
+    }, {
+        threshold: 0.15,
+        rootMargin: "0px 0px -50px 0px"
+    });
+
+    // Aplica o observer nos elementos que queremos animar
+    document.querySelectorAll('.animate-on-scroll').forEach(el => {
+        observer.observe(el);
+    });
+    </script>
+</body>
+</html>
