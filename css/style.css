@@ -261,7 +261,7 @@ p{
 }
 /* ===================== COUNTDOWN ===================== */
 .countdown-section {
-    background: var(--lavanda);
+    background: rgb(102);
     color: white;
     padding: 100px 0;
     z-index: 3;
@@ -279,6 +279,7 @@ p{
 .countdown-section #countdown-container {
     margin-top: 0px !important;
 }
+
 
 /* Números da contagem (mantido como estava) */
 .countdown-item .number {
@@ -432,7 +433,7 @@ footer {
 }
 /* ===================== COUNTDOWN REGRESSIVA - TOTALMENTE RESPONSIVO ===================== */
 .countdown-section {
-    background: rgb(247, 210, 255);
+    background: var(--lavanda);
     color: white;
     padding: 80px 15px 90px;
     text-align: center;
@@ -554,7 +555,7 @@ footer {
 
 .save-the-date-section .gold-line {
     font-size: 2rem;
-    color: #f3d4ff;
+    color: var(--lavanda);
 }
 section.save-the-date-section h1{
     font-family: 'Great Vibes', cursive;

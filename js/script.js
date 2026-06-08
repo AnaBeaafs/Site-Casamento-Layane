@@ -1,4 +1,3 @@
-
 // ===================== MÚSICA PERSISTENTE ENTRE PÁGINAS =====================
 const audio = new Audio('assets/music/die-for-you-instrumental.mp3');
 audio.loop = true;
@@ -32,34 +31,35 @@ function loadMusicState() {
     if (wasPlaying) {
         audio.play().catch(() => {});
         isPlaying = true;
-        musicBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        if (musicBtn) musicBtn.innerHTML = '<i class="fas fa-pause"></i>';
     }
 }
 
 // ==================== EVENTOS ====================
 
-musicBtn.addEventListener('click', () => {
-    if (isPlaying) {
-        audio.pause();
-        musicBtn.innerHTML = '<i class="fas fa-music"></i>';
-    } else {
-        audio.play().catch(err => {
-            console.log("Reprodução bloqueada:", err);
-        });
-        musicBtn.innerHTML = '<i class="fas fa-pause"></i>';
-    }
-    isPlaying = !isPlaying;
-    saveMusicState();
-});
+if (musicBtn) {
+    musicBtn.addEventListener('click', () => {
+        if (isPlaying) {
+            audio.pause();
+            musicBtn.innerHTML = '<i class="fas fa-music"></i>';
+        } else {
+            audio.play().catch(err => {
+                console.log("Reprodução bloqueada:", err);
+            });
+            musicBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        }
+        isPlaying = !isPlaying;
+        saveMusicState();
+    });
+}
 
 // Salvar estado quando o usuário sair da página
 window.addEventListener('beforeunload', saveMusicState);
 
-// Tentar tocar automaticamente ao carregar (com delay)
+// Tentar tocar automaticamente ao carregar
 window.addEventListener('load', () => {
     loadMusicState();
     
-    // Tenta tocar automaticamente após carregar
     setTimeout(() => {
         if (isPlaying) {
             audio.play().catch(() => {});
@@ -67,25 +67,34 @@ window.addEventListener('load', () => {
     }, 800);
 });
 
-// Atualizar o tempo salvo periodicamente (mais fluido)
+// Atualizar o tempo salvo periodicamente
 setInterval(() => {
     if (isPlaying) {
         saveMusicState();
     }
-}, 3000); // a cada 3 segundos
+}, 3000);
 
-
+// ===================== CONTAGEM REGRESSIVA (CORRIGIDO) =====================
 function updateCountdown() {
+    const container = document.getElementById('countdown-container');
+    
+    // Só executa se o elemento existir na página atual
+    if (!container) return;
+
     const weddingDate = new Date("July 19, 2026 16:00:00").getTime();
     const now = new Date().getTime();
     const distance = weddingDate - now;
+
+    if (distance < 0) {
+        container.innerHTML = `<div class="text-center">🎉 O grande dia chegou!</div>`;
+        return;
+    }
 
     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
     const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    const container = document.getElementById('countdown-container');
     container.innerHTML = `
         <div class="countdown-item">
             <div class="number">${days}</div>
@@ -106,18 +115,24 @@ function updateCountdown() {
     `;
 }
 
-setInterval(updateCountdown, 1000);
-updateCountdown();
+// Executa apenas se o elemento existir
+if (document.getElementById('countdown-container')) {
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+}
 
 // ===================== NAVBAR SCROLL =====================
 window.addEventListener('scroll', () => {
     const nav = document.getElementById('mainNav');
-    if (window.scrollY > 80) {
-        nav.classList.add('scrolled');
-    } else {
-        nav.classList.remove('scrolled');
+    if (nav) {
+        if (window.scrollY > 80) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
+        }
     }
 });
+
 function irPara(pagina) {
     const preloader = document.createElement('iframe');
     preloader.src = 'preloader.html';
@@ -130,16 +145,15 @@ function irPara(pagina) {
     preloader.style.zIndex = '99999';
     document.body.appendChild(preloader);
     
-    // Redireciona após 1.8s (tempo do preloader)
     setTimeout(() => {
         window.location.href = pagina;
     }, 1800);
 }
+
 // ===================== SALVAR NO CALENDÁRIO =====================
 function addToCalendar() {
-    const url = `https://www.google.com/calendar/render?action=TEMPLATE&text=Casamento+Layane e Daniel&dates=20260719T000000/20260720T000000&details=Nosso+grande+dia!`;
+    const url = `https://www.google.com/calendar/render?action=TEMPLATE&text=Casamento+Layane+e+Daniel&dates=20260719T000000/20260720T000000&details=Nosso+grande+dia!`;
     window.open(url, '_blank');
-    
 }
 
 function abrirMapa() {

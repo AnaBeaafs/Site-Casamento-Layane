@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Layane & Daniel • Presença</title>
     <link rel="icon" type="image/png" href="assets/images/Iconedepagina.png">
+    
+    <!-- Cache control -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/presenca.css">          
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Great+Vibes&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
@@ -55,19 +61,20 @@
         assim que tiver certeza!
         </p>
         <div class="mx-auto animate-on-scroll" style="max-width: 420px; position: relative;">
-        <input type="text" id="nomeInput" 
+            <input type="text" id="nomeInput" 
                 class="form-control form-control-lg text-center border-0 border-bottom border-2 border-dark rounded-0 py-3 fs-4"
                 placeholder="Seu nome completo" 
-                style="font-family: 'Playfair Display', serif; background: transparent; outline: none; box-shadow: none;"
+                style="font-family: 'Playfair Display', serif; background: transparent; outline: none;"
                 autocomplete="off">
-        <ul id="sugestoesLista" class="list-unstyled text-center"
-            style="display:none; position:absolute; left:0; right:0; top:100%; background:#fff; border:1px solid #ddd; border-top:none; border-radius:0 0 8px 8px; max-height:260px; overflow-y:auto; z-index:1050;">
-        </ul>
+            
+            <!-- Lista vem DEPOIS do botão no HTML para poder ficar por cima -->
+            <ul id="sugestoesLista" class="list-unstyled"></ul>
+            
+            <button onclick="confirmarPresenca()" 
+                    class="btn btn-outline-dark btn-lg px-5 py-3 mt-4 rounded-pill w-100">
+                Confirmar Presença
+            </button>
         </div>
-        <button onclick="confirmarPresenca()" 
-                class="btn btn-outline-dark btn-lg px-5 py-3 mt-5 rounded-pill animate-on-scroll">
-        Confirmar Presença
-        </button>
         <div id="resultado" class="mt-4 fs-5" style="font-family: 'Playfair Display', serif;"></div>
         <div id="feedbackEnvio" class="mt-2 small text-muted"></div>
     </div>
@@ -98,17 +105,13 @@
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
     <script>
-    // ============== EMAILJS - CORRIGIDO E SIMPLIFICADO ==============
+    // ============== EMAILJS ==============
     const PUBLIC_KEY = "MtOVefqW0iXUwD8xO";
-
     emailjs.init(PUBLIC_KEY);
-    console.log("✅ EmailJS inicializado com sucesso!");
 
     async function enviarEmailConfirmacao(nomeConvidado) {
         const SERVICE_ID = "service_yhqj17q";
         const TEMPLATE_ID = "template_w4dokuj";
-
-        console.log("🔄 Tentando enviar email para:", nomeConvidado);
 
         const params = {
             convidado: nomeConvidado,
@@ -127,16 +130,44 @@
         }
     }
 
-    // ============== RESTO DO CÓDIGO ==============
+    // ============== LOCALSTORAGE - CONFIRMADOS (CORRIGIDO) ==============
+    const STORAGE_KEY = 'confirmados_casamento';
+    let confirmados = new Set();
+
+    function carregarConfirmados() {
+        try {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                confirmados = new Set(JSON.parse(saved));
+                console.log("✅ Confirmados carregados:", Array.from(confirmados));
+            } else {
+                console.log("ℹ️ Nenhum confirmado salvo ainda.");
+            }
+        } catch (e) {
+            console.error("❌ Erro ao carregar confirmados:", e);
+            confirmados = new Set();
+        }
+    }
+
+    function salvarConfirmados() {
+        try {
+            const arrayConfirmados = Array.from(confirmados);
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(arrayConfirmados));
+            console.log("💾 Confirmados salvos com sucesso:", arrayConfirmados);
+        } catch (e) {
+            console.error("❌ Erro ao salvar confirmados no localStorage:", e);
+        }
+    }
+
+    // Carrega ao iniciar a página
+    carregarConfirmados();
+
+    // ============== RESTO DAS FUNÇÕES ==============
     const listaConvidados = [
         "Danieli","Rafael","Filipe","Jeane","Gustavo","Giovanna","Marianna (criança)","Edson","Kauan","Nelsina","Nino","Cleide","Miria","Bruno","Davi (criança)","Cleuza","Jhulia","Jhonatan","Lucas","Adilson","Rosicler","Charles","Leandro","Tamires","Isabela (criança)","Olívia (criança)","Zilda","José Paulo","Daiane","Fabiano","Miguel (criança)","Alice (criança)","Jessica","José Augusto","Aldenir Luis","Manuel Santos","Susana","Isabelly","Arthur","Ana Beatriz","Vitor","Stephani","Marcio","Guilherme","Regiane","Valdomiro","Elisson","Jose","Noemy","Yngrid","Yasmin","Regiane","Diego","Elias","Jó","Mirella","Kethelyn","Fabrício Petroceli","Alisson Cardeal","Lidiane","Andre","Karen","Kaio","Eidi","Henrique","Miguel","Ana Veloso","Lara","Gabriela","Samuel","Erica","José Anchieta","Anderson","Ivete","Marcos","Murillo","Leia","Ana Julia","Thiago","Luciene","Everton","Gabriel","Alice Abreu","Mariah Abreu","Vania","Gabrielle","Fabricio","Evelyn","Daniel","Louise","Edmilson","Rachel","Jessica","Alice","Maia","Alex","Yasmin","Kaun","Franciele","Giuliane","Maria Flor (criança)","Filipi","Manuele","Priscila","Miguel","Giovana","Eloa","Edilza","Henrique","Eduarda Liz","Jonatas","Teresa","Edinilza","Lorival","Edna","Edmilson Souza","Glaucia","Renan","Cecília","Thomas","Beatriz lira","Carlos","Edvandro","Rose Silva","Alessandro","Daniel Sorana","Danilo Sorana","Adriele","Heitor","Natan","Nathalia","Samira","Felipe Albuquerque","Carlinho","Martha","Jonas","Claudia","Davi","Stefanie","Ana Clara","Isabela","Giulia","Terezinha","Alisson","Clarinha","Nicolas"
     ].map(n => n.toUpperCase());
 
     const normalize = (s) => s.toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim().toUpperCase();
-
-    const STORAGE_KEY = 'confirmados_casamento';
-    const confirmados = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'));
-    const salvarConfirmados = () => localStorage.setItem(STORAGE_KEY, JSON.stringify(Array.from(confirmados)));
 
     const mensagensBase = [
         "Que bom saber que você vem — estamos contando os dias.",
@@ -185,13 +216,22 @@
 
     function confirmarPresenca() {
         const nome = input.value.trim().toUpperCase();
-        if (!nome) { setWarn('Por favor, digite seu nome.'); return; }
-        if (!listaConvidados.includes(nome)) { setWarn('Nome não encontrado na lista.'); return; }
+        
+        if (!nome) { 
+            setWarn('Por favor, digite seu nome.'); 
+            return; 
+        }
+        if (!listaConvidados.includes(nome)) { 
+            setWarn('Nome não encontrado na lista.'); 
+            return; 
+        }
 
-        confirmados.add(normalize(nome));
-        salvarConfirmados();
+        const nomeNormalizado = normalize(nome);
+        confirmados.add(nomeNormalizado);
+        salvarConfirmados();           // ← Salva aqui
 
         setInfo('Presença confirmada.');
+        
         document.getElementById('modalNome').textContent = nome;
         document.getElementById('modalMensagem').textContent = pickMsg();
 
@@ -206,7 +246,7 @@
             .catch(() => feedbackEnvio.textContent = '⚠️ Não foi possível enviar o email.');
     }
 
-    // Confetti (mantido)
+    // ============== CONFETTI ==============
     const confettiCanvas = document.getElementById('confettiCanvas');
     const ctx = confettiCanvas.getContext('2d');
     let confettiParticles = [];
@@ -256,6 +296,8 @@
             confettiCanvas.style.display = 'none';
         }, duration);
     }
+
+    // ============== OUTROS SCRIPTS ==============
     </script>
 
     <script>
@@ -266,13 +308,12 @@
         });
     </script>
     <script>
-    // Animação suave staggered com Intersection Observer
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry, index) => {
             if (entry.isIntersecting) {
                 setTimeout(() => {
                     entry.target.classList.add('visible');
-                }, index * 150); // Delay entre os elementos
+                }, index * 150);
             }
         });
     }, {
@@ -280,15 +321,16 @@
         rootMargin: "0px 0px -50px 0px"
     });
 
-    // Aplica o  observer nos elementos que queremos animar
     document.querySelectorAll('.animate-on-scroll').forEach(el => {
         observer.observe(el);
     });
     </script>
+
     <!-- MUSIC PLAYER -->
     <div id="music-player">
         <button id="musicBtn" class="btn-music"><i class="fas fa-music"></i></button>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/script.js"></script>
 </body>

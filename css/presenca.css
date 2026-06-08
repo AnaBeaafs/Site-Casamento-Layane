@@ -13,15 +13,6 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-  font-family: 'Playfair Display', serif;
-  scroll-behavior: smooth;
-  background-image: url(/assets/images/lavan.jpg);
-  background-repeat: no-repeat;
-  background-position: center bottom;
-  background-size: cover;
-  color: var(--ink);
-}
-body {
     font-family: 'Playfair Display', serif;
     scroll-behavior: smooth;
     background-image: url(/assets/images/lavan.jpg);
@@ -31,6 +22,32 @@ body {
     background-attachment: scroll;
     color: var(--ink);
     min-height: 100vh;
+}
+
+/* ===================== INPUT PRINCIPAL ===================== */
+#nomeInput {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    padding: 14px 2px;
+    border: none;
+    border-bottom: 3px solid #222;
+    background: transparent;
+    text-align: center;
+    outline: none;
+    color: #1f1f1f;
+    width: 100%;
+    transition: border-color 0.3s ease;
+}
+
+#nomeInput:focus {
+    border-bottom-color: #664585;   /* Cor do tema */
+    box-shadow: none;
+    outline: none;
+}
+
+#nomeInput::placeholder {
+    color: #777;
+    opacity: 0.7;
 }
 
 /* ===================== BACKGROUND RESPONSIVO ===================== */
@@ -216,41 +233,43 @@ p { font-family: 'Playfair Display', serif; color: #000; }
 .clean-input::placeholder { color: #777; opacity: 0.65; }
 .clean-input:focus { border-bottom-color: var(--lavanda-dark); }
 
-/* Lista de sugestões */
-.sugestoes {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  list-style: none;
-  background: #fff;
-  border: 1px solid var(--line);
-  border-top: none;
-  border-radius: 0 0 10px 10px;
-  max-height: 260px;
-  overflow-y: auto;
-  z-index: 1060;
-  display: none;
-}
-.sugestoes.show { display: block; }
-
-.sugestoes li {
-  padding: 12px 16px;
-  cursor: pointer;
-  font-size: 1.05rem;
-  color: var(--ink);
-  display: flex; align-items: center; justify-content: center;
-  transition: background 0.15s ease;
-}
-.sugestoes li:hover { background: #f6f4f1; }
-
-/* Estado confirmado na lista: sutil e "rústico" */
-.sugestoes li.confirmado {
-  color: var(--muted);
-  text-decoration: line-through;
-  opacity: 0.7;
+/* ===================== LISTA DE SUGESTÕES ===================== */
+#sugestoesLista {
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    top: 100% !important;
+    background: #ffffff !important;
+    border-top: none !important;
+    max-height: 280px;
+    overflow-y: auto;
+    z-index: 9999 !important;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3) !important;
+    margin-top: 2px;
+    display: none;
 }
 
+#sugestoesLista li {
+    padding: 14px 20px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: #222;
+}
+
+#sugestoesLista li:last-child {
+    border-bottom: none;
+}
+
+#sugestoesLista li:hover {
+    background: #f0e6ff;
+    color: #664585;
+}
+
+#sugestoesLista li[style*="line-through"] {
+    color: #888;
+    text-decoration: line-through;
+    opacity: 0.75;
+}
 /* Mensagem personalizada */
 #mensagemPersonalizada {
   min-height: 28px;
@@ -266,6 +285,7 @@ p { font-family: 'Playfair Display', serif; color: #000; }
 .btn-outline-dark {
   border-color: #222;
   color: #222;
+  z-index: 1000;
 }
 .btn-outline-dark:hover {
   background: #222;

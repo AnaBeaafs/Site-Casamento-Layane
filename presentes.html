@@ -102,7 +102,6 @@
             color: white !important;
         }
 
-        
         /* Espaçamento extra na listagem "Todos" */
         #presentesContainer {
             margin-top: 20px;
@@ -114,7 +113,7 @@
             .nav-pills .nav-link { font-size: 1.0rem; padding: 10px 18px !important; }
         }
 
-/* Animações de entrada */
+        /* Animações de entrada */
         .animate-on-scroll {
             opacity: 0;
             transform: translateY(40px);
@@ -126,7 +125,7 @@
             transform: translateY(0);
         }
 
-        /* Cards - Ajustados (menores e com mais espaçamento) */
+        /* Cards - Ajustados */
         .gift-card {
             border: none;
             border-radius: 22px;
@@ -146,10 +145,9 @@
         .gift-card .image-container {
             position: relative;
             width: 100%;
-            padding-top: 85%;        /* Aumentado = fotos mais altas */
+            padding-top: 85%;
             overflow: hidden;
         }
-        /* Imagem responsiva */
         .gift-card img {
             position: absolute;
             top: 0;
@@ -162,37 +160,22 @@
         .gift-card:hover img {
             transform: scale(1.05);
         }
-        /* Ajustes por tela */
+
         @media (max-width: 992px) {
-            .gift-card .image-container {
-                padding-top: 82%;
-            }
+            .gift-card .image-container { padding-top: 82%; }
         }
-
         @media (max-width: 768px) {
-            .gift-card .image-container {
-                padding-top: 78%;     /* Bom tamanho para tablets e celulares maiores */
-            }
+            .gift-card .image-container { padding-top: 78%; }
         }
-
         @media (max-width: 576px) {
-            .gift-card .image-container {
-                padding-top: 75%;
-            }
+            .gift-card .image-container { padding-top: 75%; }
         }
 
-        .card-body { 
-            padding: 1.6rem; 
-        }
+        .card-body { padding: 1.6rem; }
 
         @media (max-width: 768px) {
-            .card-body {
-                padding: 1.4rem 1.3rem;
-            }
-            
-            .card-title {
-                font-size: 1.28rem;
-            }
+            .card-body { padding: 1.4rem 1.3rem; }
+            .card-title { font-size: 1.28rem; }
         }
 
         /* Badges e botão */
@@ -248,9 +231,9 @@
     </div>
 </nav>
 
-<!-- Capa Superior --><br><br><br>
+<!-- Capa Superior -->
 <section class="hero-presentes masonry-item animate-on-scroll">
-    <div class="hero-content text-center masonry-item animate-on-scroll">
+    <div class="hero-content text-center masonry-item animate-on-scroll"><br><br>
         <h2>Nossa Lista de Presentes</h2>
         <p>Sua presença é o nosso maior presente, mas se desejar nos presentear, preparamos esta lista com carinho.</p>
     </div>
@@ -294,7 +277,38 @@
 <script>
 // ==================== EMAILJS ====================
 emailjs.init("MtOVefqW0iXUwD8xO");
-// ==================== NOVA LISTA DE PRESENTES ====================
+
+// ==================== LOCALSTORAGE DOS PRESENTES (CORRIGIDO) ====================
+let presentesPresenteados = [];
+
+function carregarPresentesSalvos() {
+    try {
+        const salvos = localStorage.getItem('presentesPresenteados');
+        if (salvos) {
+            presentesPresenteados = JSON.parse(salvos);
+            console.log("✅ Presentes carregados:", presentesPresenteados);
+        } else {
+            console.log("ℹ️ Nenhum presente marcado ainda.");
+        }
+    } catch (e) {
+        console.error("❌ Erro ao carregar presentes:", e);
+        presentesPresenteados = [];
+    }
+}
+
+function salvarPresentes() {
+    try {
+        localStorage.setItem('presentesPresenteados', JSON.stringify(presentesPresenteados));
+        console.log("💾 Presentes salvos com sucesso:", presentesPresenteados);
+    } catch (e) {
+        console.error("❌ Erro ao salvar presentes:", e);
+    }
+}
+
+// Carrega ao iniciar
+carregarPresentesSalvos();
+
+// ==================== LISTA DE PRESENTES ====================
 const presentes = [
     {id:1, area:"Cozinha", categoria:"Eletrodomésticos", nome:"Panela de Pressão Elétrica", desc:"Digital com timer e múltiplas funções.", preco:"R$ 489,90", img:"https://a-static.mlcdn.com.br/420x420/panela-de-pressao-eletrica-electrolux-pce20-900w-5l-timer-controle-de-temperaturapanela-de-pressao-eletrica-5l-electrolux-efficient-pce20-rita-lobo/magazineluiza/023328500/1af08049c3bfd85972595a23dedce181.jpg"},
     {id:2, area:"Cozinha", categoria:"Eletrodomésticos", nome:"Panela de Arroz Elétrica", desc:"Antiaderente e com função vapor.", preco:"R$ 259,90", img:"https://a-static.mlcdn.com.br/420x420/panela-de-arroz-eletrica-electrolux-efficient-2-em-1-700w-10-xicaras/magazineluiza/237895900/9c7178c56419ed5e8d4ef5efe6148039.jpg"},
@@ -315,7 +329,7 @@ const presentes = [
 
     {id:15, area:"Geral", categoria:"Contribuição", nome:"Presente em Dinheiro", isMoney:true, desc:"Para ajudar nas despesas da casa, viagem de lua de mel ou primeira compra.", preco:"Qualquer valor", img:"/assets/images/prewedding/pre27.JPG"}
 ];
-let presentesPresenteados = JSON.parse(localStorage.getItem('presentesPresenteados')) || [];
+
 // ==================== CONFETES ROXOS ====================
 function launchConfetti() {
     const colors = ['#b498ee', '#9F7AEA', '#7965a5', '#d4b3ff'];
@@ -342,6 +356,7 @@ function launchConfetti() {
     };
     frame();
 }
+
 // ==================== RENDERIZAÇÃO ====================
 const areaMenu = document.getElementById('areaMenu');
 areaMenu.innerHTML = `
@@ -350,7 +365,8 @@ areaMenu.innerHTML = `
     <li class="nav-item"><button class="nav-link nav-area" data-area="Área de Serviço"><i class="fas fa-tshirt"></i> Área de Serviço</button></li>
     <li class="nav-item"><button class="nav-link nav-area" data-area="Geral"><i class="fas fa-gift"></i> Geral</button></li>
 `;
-// Lógica dos menus e cards (mantida)
+
+// Lógica dos menus
 document.querySelectorAll('.nav-area').forEach(btn => {
     btn.addEventListener('click', () => {
         document.querySelectorAll('.nav-area').forEach(b => b.classList.remove('active'));
@@ -407,23 +423,23 @@ function renderCards(area = null, categoria = null) {
         let badgeClass = item.categoria === "Utensílios" ? "badge-utensilios" : 
                         item.categoria === "Eletrodomésticos" ? "badge-eletro" : "badge-moveis";
 
-    const cardHTML = `
-        <div class="col-md-6 col-lg-4 mb-4">
-            <div class="card gift-card ${isPresenteado ? 'presenteado' : ''}" data-id="${item.id}">
-                <div class="image-container">
-                    <img src="${item.img}" alt="${item.nome}">
+        const cardHTML = `
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card gift-card ${isPresenteado ? 'presenteado' : ''}" data-id="${item.id}">
+                    <div class="image-container">
+                        <img src="${item.img}" alt="${item.nome}">
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <span class="badge ${badgeClass} mb-3">${item.categoria}</span>
+                        <h5 class="card-title mb-3">${item.nome}</h5>
+                        <p class="card-text flex-grow-1">${item.desc}</p>
+                        <p class="fw-bold text-success fs-4 mb-3">${item.preco}</p>
+                        <button class="btn btn-confirm confirmar-btn" data-id="${item.id}" ${isPresenteado ? 'disabled' : ''}>
+                            ${isPresenteado ? 'Já Presenteado' : 'Escolher este presente'}
+                        </button>
+                    </div>
                 </div>
-                <div class="card-body d-flex flex-column">
-                    <span class="badge ${badgeClass} mb-3">${item.categoria}</span>
-                    <h5 class="card-title mb-3">${item.nome}</h5>
-                    <p class="card-text flex-grow-1">${item.desc}</p>
-                    <p class="fw-bold text-success fs-4 mb-3">${item.preco}</p>
-                    <button class="btn btn-confirm confirmar-btn" data-id="${item.id}" ${isPresenteado ? 'disabled' : ''}>
-                        ${isPresenteado ? 'Já Presenteado' : 'Escolher este presente'}
-                    </button>
-                </div>
-            </div>
-        </div>`;
+            </div>`;
         container.innerHTML += cardHTML;
     });
 };
@@ -450,29 +466,20 @@ document.getElementById('btnConfirmarFinal').addEventListener('click', () => {
     const isMoneyGift = presenteAtual.isMoney;
 
     if (!isMoneyGift) {
-        // Presente normal
         presentesPresenteados.push(presenteAtual.id);
-        localStorage.setItem('presentesPresenteados', JSON.stringify(presentesPresenteados));
+        salvarPresentes();   // ← Salva corretamente
 
-        // EmailJS
         emailjs.send("service_yhqj17q", "template_3s7i01e", {
             convidado: nome,
             presente: presenteAtual.nome,
             status: "Confirmado"
-        })
-        .then(function(response){
-            console.log("Sucesso:", response);
-        })
-        .catch(function(error){
-            console.error("Erro EmailJS:", error);
         });
-        launchConfetti();
 
+        launchConfetti();
         alert(`🎉 Obrigado, ${nome}!\n\nSua confirmação de ${presenteAtual.nome} foi registrada com carinho!`);
     } else {
-        // Presente em Dinheiro → PIX
         alert(`💜 Obrigado, ${nome}!\n\nVocê será redirecionado para o PIX do casal.`);
-        window.open("https://seu-link-do-pix-aqui", "_blank"); // ← Coloque seu PIX aqui
+        window.open("https://seu-link-do-pix-aqui", "_blank");
     }
 
     bootstrap.Modal.getInstance(document.getElementById('confirmModal')).hide();
@@ -481,6 +488,7 @@ document.getElementById('btnConfirmarFinal').addEventListener('click', () => {
 
 renderCards();
 </script>
+
 <script>
 // Animação suave staggered com Intersection Observer
 const observer = new IntersectionObserver((entries) => {
@@ -488,7 +496,7 @@ const observer = new IntersectionObserver((entries) => {
         if (entry.isIntersecting) {
             setTimeout(() => {
                 entry.target.classList.add('visible');
-            }, index * 150); // Delay entre os elementos
+            }, index * 150);
         }
     });
 }, {
@@ -496,29 +504,29 @@ const observer = new IntersectionObserver((entries) => {
     rootMargin: "0px 0px -50px 0px"
 });
 
-// Aplica o observer nos elementos que queremos animar
 document.querySelectorAll('.animate-on-scroll').forEach(el => {
     observer.observe(el);
 });
-
 </script>
-    <!-- MUSIC PLAYER -->
-    <div id="music-player">
-        <button id="musicBtn" class="btn-music"><i class="fas fa-music"></i></button>
-    </div>
 
-    <footer class="py-4 text-center bg-dark text-white">
-        <p>
-            Copyright © 2026 | Produzido por 
-            <a href="https://www.instagram.com/biasousawd/" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            class="instagram-link">
-        <i>Bia Sousa | Web Designer</i class="fab fa-instagram">
-            </a>
-        </p>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/script.js"></script>
+<!-- MUSIC PLAYER -->
+<div id="music-player">
+    <button id="musicBtn" class="btn-music"><i class="fas fa-music"></i></button>
+</div>
+
+<footer class="py-4 text-center bg-dark text-white">
+    <p>
+        Copyright © 2026 | Produzido por 
+        <a href="https://www.instagram.com/biasousawd/" 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           class="instagram-link">
+            <i>Bia Sousa | Web Designer</i>
+        </a>
+    </p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/script.js"></script>
 </body>
 </html>
