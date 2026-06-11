@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="css/presentes.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Great+Vibes&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
     <style>
         /* Capa Superior */
         .hero-presentes {
@@ -23,14 +22,12 @@
             color: white;
             position: relative;
         }
-
         .hero-content h2 {
             font-family: 'Great Vibes', cursive;
             font-size: 2.8rem;
             margin-bottom: 12px;
             text-shadow: 0 4px 20px rgba(0,0,0,0.7);
         }
-
         .hero-content p {
             font-family: 'Playfair Display', cursive;
             font-size: 1rem;
@@ -38,26 +35,22 @@
             margin: 0 0 auto;
             opacity: 0.95;
         }
-
         .presentes-section {
             background: #ffffff;
             padding: 70px 0 100px;
         }
-
         .section-divider {
             height: 3px;
             background: linear-gradient(to right, transparent, var(--lavanda), transparent);
             max-width: 280px;
             margin: 0 auto 3rem;
         }
-
         /* Menu */
         #areaMenu {
             justify-content: center !important;
             flex-wrap: wrap;
             gap: 10px;
         }
-
         .nav-pills .nav-link {
             font-family: 'Playfair Display', serif;
             font-size: 1.22rem;
@@ -70,62 +63,49 @@
             gap: 8px;
             white-space: nowrap;
         }
-
         .nav-area {
             color: #c5a3e7;
             background: rgba(159, 122, 234, 0.1);
         }
-
         .nav-area:hover,
         .nav-area.active {
             background: var(--verde) !important;
             color: #000 !important;
             transform: translateY(-3px);
         }
-
         #subMenu {
             justify-content: center !important;
             flex-wrap: wrap;
             gap: 8px;
         }
-
         .nav-sub {
             font-size: 1.05rem;
             padding: 9px 20px !important;
             color: #c5a3e7;
             background: rgba(159, 122, 234, 0.08);
         }
-
         .nav-sub:hover,
         .nav-sub.active {
             background: var(--lavanda) !important;
             color: white !important;
         }
-
-        /* Espaçamento extra na listagem "Todos" */
         #presentesContainer {
             margin-top: 20px;
         }
-
         @media (max-width: 768px) {
             .hero-presentes { height: 38vh; }
             .hero-content h1 { font-size: 3.8rem; }
             .nav-pills .nav-link { font-size: 1.0rem; padding: 10px 18px !important; }
         }
-
-        /* Animações de entrada */
         .animate-on-scroll {
             opacity: 0;
             transform: translateY(40px);
             transition: all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
         }
-        
         .animate-on-scroll.visible {
             opacity: 1;
             transform: translateY(0);
         }
-
-        /* Cards - Ajustados */
         .gift-card {
             border: none;
             border-radius: 22px;
@@ -134,11 +114,9 @@
             transition: all 0.4s ease;
             height: 100%;
         }
-
         .gift-card:hover {
             transform: translateY(-15px);
         }
-
         .gift-card.presenteado {
             filter: grayscale(80%) opacity(0.68);
         }
@@ -160,29 +138,14 @@
         .gift-card:hover img {
             transform: scale(1.05);
         }
-
-        @media (max-width: 992px) {
-            .gift-card .image-container { padding-top: 82%; }
-        }
-        @media (max-width: 768px) {
-            .gift-card .image-container { padding-top: 78%; }
-        }
-        @media (max-width: 576px) {
-            .gift-card .image-container { padding-top: 75%; }
-        }
-
         .card-body { padding: 1.6rem; }
-
         @media (max-width: 768px) {
             .card-body { padding: 1.4rem 1.3rem; }
             .card-title { font-size: 1.28rem; }
         }
-
-        /* Badges e botão */
         .badge-utensilios { background-color: #c3b0f0; color: #4a2f7a; }
         .badge-eletro { background-color: var(--lavanda); color: white; }
         .badge-moveis { background-color: var(--lavanda-dark); color: white; }
-
         .btn-confirm {
             border: 2px solid var(--lavanda);
             color: var(--lavanda);
@@ -205,12 +168,12 @@
         <a class="navbar-brand fw-bold fs-4" href="index.html" id="brandName">
             Layane & Daniel
         </a>
-        
-        <button class="navbar-toggler custom-toggler" type="button" 
-                data-bs-toggle="collapse" 
-                data-bs-target="#navbarNav" 
-                aria-controls="navbarNav" 
-                aria-expanded="false" 
+       
+        <button class="navbar-toggler custom-toggler" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
                 id="hamburgerBtn">
             <div class="hamburger">
                 <span class="bar"></span>
@@ -218,7 +181,6 @@
                 <span class="bar"></span>
             </div>
         </button>
-
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mx-auto text-center">
                 <li class="nav-item"><a class="nav-link" href="javascript:void(0)" onclick="irPara('index.html')">Home</a></li>
@@ -242,7 +204,6 @@
 <section class="presentes-section">
     <div class="container">
         <div class="section-divider"></div>
-
         <ul class="nav nav-pills mb-4 masonry-item animate-on-scroll" id="areaMenu"></ul>
         <ul class="nav nav-pills mb-5 masonry-item animate-on-scroll" id="subMenu" style="display: none;"></ul><br>
         <div class="row g-4" id="presentesContainer"></div>
@@ -271,42 +232,28 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 
 <script>
+// ==================== CONFIGURAÇÃO FIREBASE ====================
+  const firebaseConfig = {
+    apiKey: "AIzaSyDp2-4s_dsJDvNkW6SuzbQwCoUsGkzsXEY",
+    authDomain: "casamento-layane-daniel.firebaseapp.com",
+    projectId: "casamento-layane-daniel",
+    storageBucket: "casamento-layane-daniel.firebasestorage.app",
+    messagingSenderId: "871893289962",
+    appId: "1:871893289962:web:fc35a3d633eb036f478093",
+    measurementId: "G-KVREY5XFK5"
+  };
+
+const app = firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
 // ==================== EMAILJS ====================
 emailjs.init("MtOVefqW0iXUwD8xO");
-
-// ==================== LOCALSTORAGE DOS PRESENTES (CORRIGIDO) ====================
-let presentesPresenteados = [];
-
-function carregarPresentesSalvos() {
-    try {
-        const salvos = localStorage.getItem('presentesPresenteados');
-        if (salvos) {
-            presentesPresenteados = JSON.parse(salvos);
-            console.log("✅ Presentes carregados:", presentesPresenteados);
-        } else {
-            console.log("ℹ️ Nenhum presente marcado ainda.");
-        }
-    } catch (e) {
-        console.error("❌ Erro ao carregar presentes:", e);
-        presentesPresenteados = [];
-    }
-}
-
-function salvarPresentes() {
-    try {
-        localStorage.setItem('presentesPresenteados', JSON.stringify(presentesPresenteados));
-        console.log("💾 Presentes salvos com sucesso:", presentesPresenteados);
-    } catch (e) {
-        console.error("❌ Erro ao salvar presentes:", e);
-    }
-}
-
-// Carrega ao iniciar
-carregarPresentesSalvos();
 
 // ==================== LISTA DE PRESENTES ====================
 const presentes = [
@@ -347,28 +294,42 @@ const presentes = [
     {id:31, area:"Geral", categoria:"Contribuição", nome:"Presente em Dinheiro", isMoney:true, desc:"Para ajudar nas despesas da casa, viagem de lua de mel ou primeira compra.", preco:"Qualquer valor", img:"/assets/images/prewedding/pre27.JPG"}
 ];
 
-// ==================== CONFETES ROXOS ====================
+
+// ==================== FIREBASE - PRESENTES MARCADOS ====================
+let presentesPresenteados = [];
+
+async function carregarPresentesSalvos() {
+    try {
+        const snapshot = await db.ref('presentesMarcados').once('value');
+        const data = snapshot.val() || {};
+        presentesPresenteados = Object.keys(data).map(Number);
+        console.log("✅ Presentes carregados do Firebase:", presentesPresenteados);
+    } catch (e) {
+        console.error("❌ Erro ao carregar do Firebase:", e);
+    }
+}
+
+async function salvarPresente(id, nome) {
+    try {
+        await db.ref('presentesMarcados/' + id).set({
+            nome: nome,
+            data: new Date().toISOString()
+        });
+        presentesPresenteados.push(id);
+        console.log(`✅ Presente ${id} marcado por ${nome}`);
+    } catch (e) {
+        console.error("❌ Erro ao salvar no Firebase:", e);
+    }
+}
+
+// ==================== CONFETES ====================
 function launchConfetti() {
     const colors = ['#b498ee', '#9F7AEA', '#7965a5', '#d4b3ff'];
     const duration = 1800;
     const end = Date.now() + duration;
-
     const frame = () => {
-        confetti({
-            particleCount: 8,
-            angle: 60,
-            spread: 55,
-            origin: { x: 0 },
-            colors: colors
-        });
-        confetti({
-            particleCount: 8,
-            angle: 120,
-            spread: 55,
-            origin: { x: 1 },
-            colors: colors
-        });
-
+        confetti({ particleCount: 8, angle: 60, spread: 55, origin: { x: 0 }, colors: colors });
+        confetti({ particleCount: 8, angle: 120, spread: 55, origin: { x: 1 }, colors: colors });
         if (Date.now() < end) requestAnimationFrame(frame);
     };
     frame();
@@ -383,12 +344,10 @@ areaMenu.innerHTML = `
     <li class="nav-item"><button class="nav-link nav-area" data-area="Geral"><i class="fas fa-gift"></i> Geral</button></li>
 `;
 
-// Lógica dos menus
 document.querySelectorAll('.nav-area').forEach(btn => {
     btn.addEventListener('click', () => {
         document.querySelectorAll('.nav-area').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-
         const area = btn.dataset.area;
         if (area === "Todos") {
             document.getElementById('subMenu').style.display = 'none';
@@ -404,7 +363,6 @@ function renderSubMenu(area) {
     const subMenu = document.getElementById('subMenu');
     subMenu.innerHTML = '';
     subMenu.style.display = 'flex';
-
     if (area === "Cozinha") {
         ["Eletrodomésticos", "Utensílios"].forEach(cat => {
             const li = document.createElement('li');
@@ -412,13 +370,7 @@ function renderSubMenu(area) {
             li.innerHTML = `<button class="nav-link nav-sub" data-area="${area}" data-cat="${cat}">${cat}</button>`;
             subMenu.appendChild(li);
         });
-    } else if (area === "Área de Serviço") {
-        const li = document.createElement('li');
-        li.className = 'nav-item';
-        li.innerHTML = `<button class="nav-link nav-sub active" data-area="${area}" data-cat="Eletrodomésticos">Eletrodomésticos</button>`;
-        subMenu.appendChild(li);
     }
-
     document.querySelectorAll('.nav-sub').forEach(btn => {
         btn.addEventListener('click', () => {
             document.querySelectorAll('.nav-sub').forEach(b => b.classList.remove('active'));
@@ -431,7 +383,6 @@ function renderSubMenu(area) {
 function renderCards(area = null, categoria = null) {
     const container = document.getElementById('presentesContainer');
     container.innerHTML = '';
-
     let filtrados = (area && area !== "Todos") ? presentes.filter(p => p.area === area) : presentes;
     if (categoria) filtrados = filtrados.filter(p => p.categoria === categoria);
 
@@ -463,51 +414,56 @@ function renderCards(area = null, categoria = null) {
 
 // Modal + Confirmação
 let presenteAtual = null;
-
 document.addEventListener('click', e => {
     if (e.target.classList.contains('confirmar-btn') && !e.target.disabled) {
         const id = parseInt(e.target.dataset.id);
         presenteAtual = presentes.find(p => p.id === id);
-
         document.getElementById('modalTitle').textContent = presenteAtual.nome;
         document.getElementById('modalDescricao').textContent = presenteAtual.desc + " — " + presenteAtual.preco;
-
         new bootstrap.Modal(document.getElementById('confirmModal')).show();
     }
 });
 
-document.getElementById('btnConfirmarFinal').addEventListener('click', () => {
+document.getElementById('btnConfirmarFinal').addEventListener('click', async () => {
     const nome = document.getElementById('nomePresenteador').value.trim();
     if (!nome) return alert("Por favor, informe seu nome.");
 
-    const isMoneyGift = presenteAtual.isMoney;
+    await salvarPresente(presenteAtual.id, nome);
 
-    if (!isMoneyGift) {
-        presentesPresenteados.push(presenteAtual.id);
-        salvarPresentes();   // ← Salva corretamente
+    emailjs.send("service_yhqj17q", "template_3s7i01e", {
+        convidado: nome,
+        presente: presenteAtual.nome,
+        status: "Confirmado"
+    });
 
-        emailjs.send("service_yhqj17q", "template_3s7i01e", {
-            convidado: nome,
-            presente: presenteAtual.nome,
-            status: "Confirmado"
-        });
-
-        launchConfetti();
-        alert(`🎉 Obrigado, ${nome}!\n\nSua confirmação de ${presenteAtual.nome} foi registrada com carinho!`);
-    } else {
-        alert(`💜 Obrigado, ${nome}!\n\nVocê será redirecionado para o PIX do casal.`);
-        window.open("https://seu-link-do-pix-aqui", "_blank");
-    }
+    launchConfetti();
+    alert(`🎉 Obrigado, ${nome}!\n\nSua confirmação de ${presenteAtual.nome} foi registrada com carinho!`);
 
     bootstrap.Modal.getInstance(document.getElementById('confirmModal')).hide();
     renderCards();
 });
 
-renderCards();
+async function salvarPresente(id, nome) {
+    try {
+        await db.ref('presentesMarcados/' + id).set({
+            nome: nome,
+            data: new Date().toISOString()
+        });
+        presentesPresenteados.push(id);
+    } catch (e) {
+        console.error("Erro ao salvar:", e);
+    }
+}
+
+// Inicialização
+window.onload = () => {
+    carregarPresentesSalvos();
+    renderCards();
+};
 </script>
 
 <script>
-// Animação suave staggered com Intersection Observer
+// Animação suave
 const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, index) => {
         if (entry.isIntersecting) {
@@ -516,14 +472,8 @@ const observer = new IntersectionObserver((entries) => {
             }, index * 150);
         }
     });
-}, {
-    threshold: 0.15,
-    rootMargin: "0px 0px -50px 0px"
-});
-
-document.querySelectorAll('.animate-on-scroll').forEach(el => {
-    observer.observe(el);
-});
+}, { threshold: 0.15 });
+document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
 </script>
 
 <!-- MUSIC PLAYER -->
@@ -532,18 +482,9 @@ document.querySelectorAll('.animate-on-scroll').forEach(el => {
 </div>
 
 <footer class="py-4 text-center bg-dark text-white">
-    <p>
-        Copyright © 2026 | Produzido por 
-        <a href="https://www.instagram.com/biasousawd/" 
-           target="_blank" 
-           rel="noopener noreferrer" 
-           class="instagram-link">
-            <i>Bia Sousa | Web Designer</i>
-        </a>
-    </p>
+    <p>Copyright © 2026 | Produzido por <a href="https://www.instagram.com/biasousawd/" target="_blank">Bia Sousa | Web Design</a></p>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="js/script.js"></script>
 </body>
 </html>
