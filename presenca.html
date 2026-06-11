@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -6,6 +5,7 @@
     <title>Layane & Daniel • Presença</title>
     <link rel="icon" type="image/png" href="assets/images/Iconedepagina.png">
     
+    <!-- Cache control -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -14,19 +14,28 @@
     <link rel="stylesheet" href="css/presenca.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Great+Vibes&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-    <!-- Firebase -->
+    
+    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 </head>
 <body>
-    <!-- Navbar (mesma de antes) -->
+    <!-- ===================== NAVBAR ===================== -->
     <nav class="navbar fixed-top navbar-expand-lg" id="mainNav">
         <div class="container">
-            <a class="navbar-brand fw-bold fs-4" href="index.html">Layane & Daniel</a>
-            <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <a class="navbar-brand fw-bold fs-4" href="index.html" id="brandName">
+                Layane & Daniel
+            </a>
+            <button class="navbar-toggler custom-toggler" type="button" 
+                    data-bs-toggle="collapse" 
+                    data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" 
+                    aria-expanded="false" 
+                    id="hamburgerBtn">
                 <div class="hamburger">
-                    <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
                 </div>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -43,38 +52,43 @@
 
     <div class="container min-vh-100 d-flex flex-column justify-content-center animate-on-scroll">
         <div class="text-center">
-            <h2 class="display-5 fw-bold text-dark mb-2" style="font-family: 'Playfair Display', serif;">Digite seu nome.</h2>
-            <p class="text-muted mb-5" style="font-family: 'Playfair Display', serif; font-size: 1.1rem;">
-                Pedimos que confirme o mais rápido que puder,<br>assim que tiver certeza!
+            <h2 class="display-5 fw-bold text-dark mb-2 animate-on-scroll" style="font-family: 'Playfair Display', serif;">
+                Digite seu nome.
+            </h2>
+            <p class="text-muted mb-5 animate-on-scroll" style="font-family: 'Playfair Display', serif; font-size: 1.1rem;">
+                Pedimos que confirme o mais rápido que puder,<br>
+                assim que tiver certeza!
             </p>
-
-            <div class="mx-auto" style="max-width: 420px; position: relative;">
+            
+            <div class="mx-auto animate-on-scroll" style="max-width: 420px; position: relative;">
                 <input type="text" id="nomeInput" 
                        class="form-control form-control-lg text-center border-0 border-bottom border-2 border-dark rounded-0 py-3 fs-4"
-                       placeholder="Seu nome completo" autocomplete="off">
-
+                       placeholder="Seu nome completo"
+                       style="font-family: 'Playfair Display', serif; background: transparent; outline: none;"
+                       autocomplete="off">
+                
                 <ul id="sugestoesLista" class="list-unstyled"></ul>
-
-                <button id="btnConfirmar" 
+                
+                <button onclick="confirmarPresenca()" 
                         class="btn btn-outline-dark btn-lg px-5 py-3 mt-4 rounded-pill w-100">
                     Confirmar Presença
                 </button>
             </div>
-
+            
             <div id="resultado" class="mt-4 fs-5" style="font-family: 'Playfair Display', serif;"></div>
             <div id="feedbackEnvio" class="mt-2 small text-muted"></div>
         </div>
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="confirmModal" tabindex="-1">
+    <div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="border-radius:12px;">
+            <div class="modal-content" style="border:1px solid #ddd; border-radius:12px;">
                 <div class="modal-header" style="border-bottom: none;">
                     <h5 class="modal-title" style="font-family:'Playfair Display', serif;">Presença confirmada</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body text-center pb-4" style="font-family:'Playfair Display', serif; color:#222;">
+                <div class="modal-body text-center pb-4" style="font-family:'Playfair Display', serif; font-size:1.05rem; color:#222;">
                     <div id="modalNome" class="mb-2 fw-bold"></div>
                     <div id="modalMensagem" class="text-muted"></div>
                 </div>
@@ -85,26 +99,49 @@
         </div>
     </div>
 
+    <!-- Canvas Confetes -->
     <canvas id="confettiCanvas" style="position:fixed; inset:0; pointer-events:none; z-index:2000; display:none;"></canvas>
 
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script>
-        // ============== CONFIGURAÇÕES ==============
+        // ============== EMAILJS ==============
         const PUBLIC_KEY = "MtOVefqW0iXUwD8xO";
         emailjs.init(PUBLIC_KEY);
 
-      const firebaseConfig = {
-        apiKey: "AIzaSyDIs2-m3OWreSZULYprAioLbmN4N22hoXQ",
-        authDomain: "presenca-layane-e-dainel.firebaseapp.com",
-        projectId: "presenca-layane-e-dainel",
-        storageBucket: "presenca-layane-e-dainel.firebasestorage.app",
-        messagingSenderId: "669839438046",
-        appId: "1:669839438046:web:99d7103fd4da8815ecd24f",
-        measurementId: "G-TQFL7L2KPH"
-      };
+        async function enviarEmailConfirmacao(nomeConvidado) {
+            const SERVICE_ID = "service_yhqj17q";
+            const TEMPLATE_ID = "template_w4dokuj";
+            const params = {
+                convidado: nomeConvidado,
+                status: "Confirmado",
+                para_email: "confrimacaolayane@gmail.com",
+                data: new Date().toLocaleString('pt-BR')
+            };
+            try {
+                const response = await emailjs.send(SERVICE_ID, TEMPLATE_ID, params);
+                console.log("✅ EMAIL ENVIADO COM SUCESSO!", response);
+                return response;
+            } catch (error) {
+                console.error("❌ ERRO AO ENVIAR EMAIL:", error);
+                return null;
+            }
+        }
+
+        // ============== FIREBASE CONFIG ==============
+        const firebaseConfig = {
+            apiKey: "AIzaSyDIs2-m3OWreSZULYprAioLbmN4N22hoXQ",
+            authDomain: "presenca-layane-e-dainel.firebaseapp.com",
+            projectId: "presenca-layane-e-dainel",
+            storageBucket: "presenca-layane-e-dainel.firebasestorage.app",
+            messagingSenderId: "669839438046",
+            appId: "1:669839438046:web:99d7103fd4da8815ecd24f",
+            measurementId: "G-TQFL7L2KPH"
+          };
+
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
+        // ============== VARIÁVEIS GLOBAIS ==============
         let confirmados = new Set();
         const CONFIRMACOES_COLLECTION = "confirmados";
 
@@ -113,27 +150,29 @@
             try {
                 const snapshot = await db.collection(CONFIRMACOES_COLLECTION).get();
                 confirmados.clear();
-                snapshot.forEach(doc => confirmados.add(doc.id));
-                console.log("✅ Confirmados carregados:", Array.from(confirmados));
+                snapshot.forEach(doc => {
+                    confirmados.add(doc.id);
+                });
+                console.log("✅ Confirmados carregados do Firebase:", Array.from(confirmados));
             } catch (e) {
-                console.error("Erro Firebase:", e);
+                console.error("Erro ao carregar do Firebase:", e);
             }
         }
 
         async function salvarConfirmacao(nomeNormalizado) {
             try {
                 await db.collection(CONFIRMACOES_COLLECTION).doc(nomeNormalizado).set({
+                    nome: nomeNormalizado,
                     confirmadoEm: firebase.firestore.FieldValue.serverTimestamp()
                 });
-                return true;
+                console.log("💾 Confirmado salvo no Firebase:", nomeNormalizado);
             } catch (e) {
-                console.error("Erro ao salvar:", e);
-                return false;
+                console.error("Erro ao salvar no Firebase:", e);
             }
         }
 
         // ============== LISTA DE CONVIDADOS ==============
-        const listaConvidados = [ /* ... mesma lista completa ... */ 
+        const listaConvidados = [
             "Danieli","Malu","Bruss","Gina","Abimael","Rafael","Filipe","Jeane","Gustavo","Giovanna",
             "Marianna (criança)","Edson","Kauan","Nelsina","Nino","Cleide","Miria","Bruno","Davi (criança)",
             "Cleuza","Jhulia","Jhonatan","Lucas","Adilson","Rosicler","Charles","Leandro","Tamires",
@@ -164,54 +203,41 @@
         ];
         const pickMsg = () => mensagensBase[Math.floor(Math.random() * mensagensBase.length)];
 
-        // ============== ELEMENTOS ==============
-        const input = document.getElementById('nomeInput');
-        const ul = document.getElementById('sugestoesLista');
-        const resultado = document.getElementById('resultado');
-        const feedbackEnvio = document.getElementById('feedbackEnvio');
-        const btnConfirmar = document.getElementById('btnConfirmar');
-
-        const setInfo = (msg) => { resultado.style.color = '#222'; resultado.textContent = msg; };
-        const setWarn = (msg) => { resultado.style.color = '#d9534f'; resultado.textContent = msg; };
+        // ============== ELEMENTOS DO DOM ==============
+        let input, ul, resultado, feedbackEnvio;
 
         // ============== SUGESTÕES ==============
         function renderSugestoes(query) {
             const q = normalize(query);
             const resultados = q ? listaConvidados.filter(n => normalize(n).startsWith(q)) : [];
             
+            if (!resultados.length) {
+                ul.style.display = 'none';
+                ul.innerHTML = '';
+                return;
+            }
+
             ul.innerHTML = resultados.map(nome => {
                 const isConf = confirmados.has(normalize(nome));
-                const style = isConf ? 'color:#777;text-decoration:line-through;opacity:.75;' : '';
-                return `<li data-nome="${nome}" style="padding:12px; cursor:pointer; ${style}">${nome}</li>`;
+                const liStyle = isConf ? 'color:#777;text-decoration:line-through;opacity:.75;' : 'color:#222;';
+                return `<li data-nome="${nome}" style="padding:12px; cursor:pointer; ${liStyle}">${nome}</li>`;
             }).join('');
 
-            ul.style.display = resultados.length ? 'block' : 'none';
+            ul.style.display = 'block';
         }
 
-        ul.addEventListener('click', e => {
-            const li = e.target.closest('li');
-            if (li) {
-                input.value = li.dataset.nome;
-                ul.style.display = 'none';
-            }
-        });
-
-        document.addEventListener('click', e => {
-            if (!e.target.closest('.mx-auto')) ul.style.display = 'none';
-        });
-
-        input.addEventListener('input', () => renderSugestoes(input.value));
-
-        // ============== BOTÃO CONFIRMAR (principal correção) ==============
-        btnConfirmar.addEventListener('click', async () => {
+        // ============== CONFIRMAR PRESENÇA (FUNÇÃO PRINCIPAL CORRIGIDA) ==============
+        async function confirmarPresenca() {
             const nome = input.value.trim().toUpperCase();
             
             if (!nome) {
-                setWarn('Por favor, digite seu nome.');
+                resultado.style.color = '#6e6e6e';
+                resultado.textContent = 'Por favor, digite seu nome.';
                 return;
             }
             if (!listaConvidados.includes(nome)) {
-                setWarn('Nome não encontrado na lista.');
+                resultado.style.color = '#6e6e6e';
+                resultado.textContent = 'Nome não encontrado na lista.';
                 return;
             }
 
@@ -221,8 +247,9 @@
                 await salvarConfirmacao(nomeNormalizado);
                 confirmados.add(nomeNormalizado);
 
-                setInfo('Presença confirmada com sucesso! 🎉');
-                
+                resultado.style.color = '#222';
+                resultado.textContent = 'Presença confirmada.';
+
                 document.getElementById('modalNome').textContent = nome;
                 document.getElementById('modalMensagem').textContent = pickMsg();
                 
@@ -234,15 +261,15 @@
 
                 enviarEmailConfirmacao(nome)
                     .then(() => feedbackEnvio.textContent = '✅ Confirmação enviada para a noiva.')
-                    .catch(() => feedbackEnvio.textContent = '⚠️ Email não enviado, mas presença confirmada.');
-
-            } catch (err) {
-                console.error(err);
-                setWarn('Erro ao confirmar. Tente novamente.');
+                    .catch(() => feedbackEnvio.textContent = '⚠️ Não foi possível enviar o email.');
+            } catch (e) {
+                console.error(e);
+                resultado.style.color = '#d9534f';
+                resultado.textContent = 'Erro ao confirmar. Tente novamente.';
             }
-        });
+        }
 
-        // ============== CONFETTI (mesmo de antes) ==============
+        // ============== CONFETTI ==============
         const confettiCanvas = document.getElementById('confettiCanvas');
         const ctx = confettiCanvas.getContext('2d');
         let confettiParticles = [];
@@ -252,12 +279,10 @@
             confettiCanvas.width = window.innerWidth;
             confettiCanvas.height = window.innerHeight;
         }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
 
-        function createConfetti() {
+        function createConfetti(count = 120) {
             const colors = ['#b498ee', '#7965a5', '#cfc6e9', '#d7d0ec'];
-            confettiParticles = Array.from({ length: 150 }, () => ({
+            confettiParticles = Array.from({ length: count }).map(() => ({
                 x: Math.random() * confettiCanvas.width,
                 y: Math.random() * confettiCanvas.height - 100,
                 r: 2 + Math.random() * 4,
@@ -283,35 +308,73 @@
             if (confettiParticles.length > 0) rafId = requestAnimationFrame(drawConfetti);
         }
 
-        function startConfetti() {
+        function startConfetti(duration = 1400) {
             confettiCanvas.style.display = 'block';
-            createConfetti();
+            createConfetti(150);
             drawConfetti();
             setTimeout(() => {
                 cancelAnimationFrame(rafId);
                 confettiCanvas.style.display = 'none';
-            }, 1400);
+            }, duration);
         }
 
-        // Carregar confirmados
-        window.addEventListener('load', carregarConfirmados);
+        // ============== INICIALIZAÇÃO ==============
+        window.addEventListener('load', () => {
+            // Selecionar elementos após o carregamento
+            input = document.getElementById('nomeInput');
+            ul = document.getElementById('sugestoesLista');
+            resultado = document.getElementById('resultado');
+            feedbackEnvio = document.getElementById('feedbackEnvio');
 
-        // ============== ENVIAR EMAIL ==============
-        async function enviarEmailConfirmacao(nomeConvidado) {
-            const params = {
-                convidado: nomeConvidado,
-                status: "Confirmado",
-                para_email: "confrimacaolayane@gmail.com",
-                data: new Date().toLocaleString('pt-BR')
-            };
-            try {
-                await emailjs.send("service_yhqj17q", "template_w4dokuj", params);
-                console.log("Email enviado");
-            } catch (e) {
-                console.error("Erro email:", e);
-            }
-        }
+            // Eventos
+            ul.addEventListener('click', (e) => {
+                const li = e.target.closest('li');
+                if (!li) return;
+                input.value = li.getAttribute('data-nome');
+                ul.style.display = 'none';
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.mx-auto')) ul.style.display = 'none';
+            });
+
+            input.addEventListener('input', () => renderSugestoes(input.value));
+
+            carregarConfirmados();
+        });
     </script>
+
+    <script>
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('mainNav');
+            if (window.scrollY > 80) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+        });
+    </script>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 150);
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+
+    <!-- MUSIC PLAYER -->
+    <div id="music-player">
+        <button id="musicBtn" class="btn-music"><i class="fas fa-music"></i></button>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/script.js"></script>
