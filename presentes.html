@@ -244,7 +244,7 @@ const firebaseConfig = {
     storageBucket: "casamento-layane-daniel.firebasestorage.app",
     messagingSenderId: "871893289962",
     appId: "1:871893289962:web:fc35a3d633eb036f478093",
-    measurementId: "G-KVREY5XFK5"
+    databaseURL: "https://casamento-layane-daniel-default-rtdb.firebaseio.com/"
 };
 
 const app = firebase.initializeApp(firebaseConfig);
@@ -299,6 +299,7 @@ async function carregarPresentesSalvos() {
     } catch (e) {
         console.error("❌ Erro ao carregar do Firebase:", e);
     }
+    renderCards();
 }
 
 async function salvarPresente(id, nome) {
